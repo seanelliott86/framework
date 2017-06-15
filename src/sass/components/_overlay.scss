@@ -1,0 +1,124 @@
+//new overlay
+.overlay-open{
+    overflow: hidden;
+    padding-right: 17px;
+    position: relative;
+
+    .mast-header, .content-main, .mast-footer{
+        filter: blur(3px);
+        transition-duration: 0.8s;
+    }
+
+    .hiddenscroll &{
+        padding-right: 0;
+    }
+
+    .device-ios &, .device-android &{
+        position: fixed;
+    }
+}
+
+.overlay_container{
+    display: none;
+    -webkit-transition: 500ms opacity ease;
+       -moz-transition: 500ms opacity ease;
+        -ms-transition: 500ms opacity ease;
+         -o-transition: 500ms opacity ease;
+            transition: 500ms opacity ease;
+    opacity: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: calc(100vw + 17px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    z-index: 12;
+    -webkit-overflow-scrolling: touch;
+
+    .hiddenscroll &{
+        width: 100vw;
+    }
+
+    .ie9 &{
+        width: calc(100vw + 17px);
+    }
+
+    &[aria-hidden="false"]{
+        display: block;
+    }
+
+    &.is-open{
+        opacity: 1;
+    }
+}
+
+.overlay_bg{
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.6);
+}
+
+.overlay_dialog{
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    top: 50%;
+    margin: 0 auto;
+    -webkit-transform: translateY(-50%);
+       -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+         -o-transform: translateY(-50%);
+            transform: translateY(-50%);
+    -webkit-transition: top 0.3s ease, -webkit-transform 0.3s ease;
+       -moz-transition: top 0.3s ease, -moz-transform 0.3s ease;
+        -ms-transition: top 0.3s ease, -ms-transform 0.3s ease;
+         -o-transition: top 0.3s ease, -o-transform 0.3s ease;
+            transition: top 0.3s ease, transform 0.3s ease;
+
+    .is-anchored &{
+        top: 0;
+        padding: 20px 0;
+        -webkit-transform: translateY(0);
+           -moz-transform: translateY(0);
+            -ms-transform: translateY(0);
+             -o-transform: translateY(0);
+                transform: translateY(0);
+    }
+}
+
+.overlay_content{
+    background: #fff;
+    padding: 24px 20px;
+    width: 94%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.overlay_close-btn{
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 12px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px 7px 7px;
+    cursor: pointer;
+    color: #fff;
+    border: 0;
+    outline: none;
+    background: #e74c3c;
+    height: 30px;
+    width: 30px;
+
+    &:hover, &:focus{
+        background: #c0392b;
+    }
+}

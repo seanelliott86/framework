@@ -1,0 +1,32 @@
+// Propvalue mixin
+//
+// Loops through a map and outputs each key/value 
+// as a css property/value.
+@mixin propValue($map) {
+    @each $prop, $value in $map {
+        #{$prop}: #{$value};
+    }
+}
+
+// Typography mixin
+//
+// Gets the designated style name and outputs any
+// key/values set in the “base”. After that, it loops
+// through the media queries and sets up the 
+// responsive typography
+@mixin typography($element) {
+    
+    $map: map-get($typography, $element);
+    $base: map-get($map, base);
+    
+    @include propValue($base);
+    
+    $mq: map-remove($map, base);
+    
+    @each $bp, $attr in $mq {
+        @include mq($bp) {
+            @include propValue($attr);
+        }
+    }
+
+}

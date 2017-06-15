@@ -1,0 +1,147 @@
+/*---------------------------------
+	TABS
+-----------------------------------*/
+.tabs_list{
+	margin: 0 0 -1px 0;
+	padding: 0;
+	width: 100%;
+
+	&.is-left{text-align:left;}
+	&.is-center{text-align:center;}
+	&.is-right{text-align:right;}
+	&.is-justify{
+		display: table;
+	}
+
+	.is-responsive > &{
+		position: absolute; 
+		visibility: hidden;
+	}
+}
+
+.tabs_item{
+	display: inline-block;
+	border-bottom:0;
+	cursor: pointer;
+
+	.is-justify &{
+		display: table-cell;
+	}
+}
+
+.tabs_content{
+	clear:both;
+	margin: 0;
+	overflow: hidden;
+
+	&.is-hidden{
+		display: none;
+	}
+}
+
+.tabs-accordion_item{
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+	position: absolute; 
+	visibility: hidden;
+
+	.is-responsive > &{
+		position: relative;
+		visibility: visible;
+	}
+
+	
+	.open{
+		display: block;
+	}
+
+	.close{
+		display: none;
+	}
+}
+
+.is-current.is-closed{
+	.open{
+		display: block;
+	}
+
+	.close{
+		display: none;
+	}
+}
+
+.is-current{
+	.open{
+		display: none;
+	}
+
+	.close{
+		display: block;
+	}
+}
+
+/*tabs custom styles */
+.tabs{
+	margin-bottom: 2em;
+}
+
+.tabs_nav{
+	.is-responsive > & {
+		cursor: pointer;
+		position: absolute; 
+		visibility: hidden;
+	}
+}
+
+.tabs_item{
+	border:1px solid #eee;
+	border-bottom: none;
+	line-height: 1;
+}
+
+.tabs_link{
+	padding: 1em 2.5em;
+	display: block;
+
+	&:link, &:visited{
+
+	}
+
+	&:hover, &:focus, 
+	&.is-current{
+		background-color: #eee;
+		text-decoration: none;
+	}
+}
+
+.tabs_content{
+	border:1px solid #eee;
+	padding: 1em;
+
+	.is-responsive > &{
+		border-left: none;
+		border-bottom: none;
+		border-right: none;
+		margin-top: 0;
+
+		&.is-closed{
+			display: none;
+		}
+	}
+}
+
+.tabs-accordion_item{
+	border-top:1px solid #eee;
+	padding: 1em;
+	text-transform: uppercase;
+	cursor: pointer;
+
+	&:last-of-type{
+		border-bottom:1px solid #eee;
+	}
+
+	.icon-area{
+		float: right;
+	}
+}

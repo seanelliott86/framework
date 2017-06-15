@@ -1,0 +1,33 @@
+.table-responsive-wrap{
+	width: 100%;
+
+	table{
+		width:99.9%;
+	}
+
+	&.respond {
+	    overflow-x: scroll;
+	    overflow-y: hidden;
+	    -webkit-overflow-scrolling: touch;
+	}
+}
+
+.table-swipe{
+	position: relative;
+	width: 100%;
+	display: inline-block;
+
+	&:before{
+		content: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9Ii01NDUgMzU4LjkgMTAwIDEyNSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAtNTQ1IDM1OC45IDEwMCAxMjU7IiB4bWw6c3BhY2U9InByZXNlcnZlIj48cGF0aCBkPSJNLTQ3NC43LDM3MGM4LjcsMS40LDE2LjksNC4xLDI0LjYsNy44YzAuNSwwLjIsMC44LDAuNywwLjgsMS4yYzAsMC4xLDAsMC4xLDAsMC4ybC0xLjMsMTBjLTAuMSwwLjYtMC42LDEuMi0xLjMsMS4yYy0wLjIsMC0wLjQtMC4xLTAuNi0wLjJjLTYuNS0zLjUtMTMuNy02LjEtMjEuMi03LjZMLTQ3NC43LDM3MHoiLz48cGF0aCBkPSJNLTQ2MS4zLDQwNy45Yy0xLjQsMC0yLjcsMC42LTMuNiwxLjZMLTQ3NCw0MjBjLTAuOSwxLTIuMiwxLjctMy43LDEuN2MtMi43LDAtNC45LTIuMi00LjktNC45bC0yLjEtNTNjMC0yLjctMi4yLTQuOS00LjktNC45Yy0yLjYsMC00LjcsMS45LTQuOSw0LjRsLTIuOSwzOC4zbC0yMS42LDkuNmMtMy41LDEuNS01LjksNS01LjksOWMwLDAuNCwwLDAuOSwwLjEsMS4zbDMuOSwyOWMwLjYsNC44LDQuNyw4LjUsOS43LDguNWgyMy43YzMuNywwLDYuOS0yLjEsOC42LTUuMWwyMS45LTM4LjVjMC40LTAuNywwLjYtMS42LDAuNi0yLjRDLTQ1Ni40LDQxMC4xLTQ1OC42LDQwNy45LTQ2MS4zLDQwNy45eiIvPjxwYXRoIGQ9Ik0tNTQxLjIsMzg2LjRMLTU0MS4yLDM4Ni40bDE3LjktMTguM3YwYzAuMi0wLjIsMC42LTAuNCwwLjktMC40YzAuNiwwLDEuMSwwLjQsMS4yLDAuOWwxLjgsNS4zYzQuNS0xLjcsOS4yLTIuOSwxMy45LTMuOGwtMC41LDEyLjVjLTMuMiwwLjctNi40LDEuNi05LjUsMi43bDEuNyw1YzAsMC4xLDAuMSwwLjMsMC4xLDAuNGMwLDAuNy0wLjYsMS4zLTEuMywxLjNjLTAuMSwwLTAuMSwwLTAuMiwwbC0yNS4zLTMuNWMtMC42LDAtMS4yLTAuNi0xLjItMS4yQy01NDEuNiwzODctNTQxLjUsMzg2LjYtNTQxLjIsMzg2LjR6Ii8+PC9zdmc+');
+	    display: inline-block;
+	    width: 20px;
+	    vertical-align: text-top;
+	    margin-right: 10px;
+	    line-height: 1;
+	}
+
+	&.hide{
+		display: none;
+	}
+	
+}

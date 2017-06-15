@@ -1,0 +1,35 @@
+<header role="banner" class="mast-header">
+	<ul class="skip-to">
+		<li class="skip-to__item"><a href="#content-main" class="skip-to__links">Skip to main content</a></li>
+		<li class="skip-to__item"><a href="#main-nav" class="skip-to__links">Skip to main navigation</a></li>
+	</ul>
+
+	<a href="/" class="logo-link">
+		<svg class="logo">
+			<use xlink:href="#logo"></use>
+		</svg>
+	</a>
+
+	<button type="button" aria-controls="header-search" class="js-toggle toggle-search_btn"><span class="visually-hidden">Toggle Search</span>
+		<svg class="icon search">
+			<use xlink:href="#search"></use>
+		</svg>
+	</button>
+	
+	<div id="header-search" aria-expanded="false" tabindex="-1" role="region" class="header-search">
+		<div class="form">
+			<div class="form-row">
+				<div class="form-group">
+					<div class="label visually-hidden">
+						<label for="header-search-input">Search for:</label>
+					</div>
+					<div class="element">
+						<input id="header-search-input" type="text" name="Site Search" class="txt-input">
+					</div>
+					<div class="notes"></div>
+					<div class="msg"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>

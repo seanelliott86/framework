@@ -1,0 +1,123 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+//
+// ==== Colors ==== 
+// Define your colors as a named variable e.g. $white: #fff;
+//
+
+$white: #fff;
+$black: #000;
+$grey: #bec3c4;
+$lightGrey: #f2f2f2;
+$darkGrey: #5f5f5f;
+$inputGrey: #d9d9d9;
+$blue: #001a71;
+$lightBlue: #00AEEF;
+$red: #e00000;
+
+//
+// ==== Fonts ==== 
+// Define your fonts family stack as a named variable e.g. $Gotham-Ultr: 'Gotham-Ultra', sans-serif;
+//
+
+$arialStack: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+$merriStack: 'Merriweather Sans', sans-serif;
+
+// Grid breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 34em,
+  md: 48em,
+  lg: 62em,
+  xl: 75em
+) !default;
+@include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
+
+
+
+$enable-flex:               false !default;
+
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+
+// TJ: md: was 40rem, felt too small.
+// TJ: sm: was 30rem
+$container-max-widths: (
+  // sm: 34rem,
+  // md: 44rem,
+  // lg: 52rem,
+  xl: 75rem
+) !default;
+@include _assert-ascending($container-max-widths, "$container-max-widths");
+
+
+// Grid columns
+//
+// Set the number of columns and specify the width of the gutters.
+
+$grid-columns:      12 !default;
+$grid-gutter-width: 1.11rem !default;
+
+$typography: (
+	h1: (
+		base: (
+			font-size: 200%,
+			line-height: 1.1,
+			letter-spacing: -0.5px,
+		),
+		lg: (
+			font-size: 200%
+		)
+	),
+	h2: (
+		base: (
+			font-size: 175%,
+			letter-spacing: -1.5px
+		),
+		md: (
+			font-size: 187%
+		)
+	),
+	h3: (
+		base: (
+			font-size: 150%,
+			letter-spacing: -1px
+		),
+		md: (
+			font-size: 160%
+		)
+	),
+	h4: (
+		base: (
+			font-size: 140%,
+			letter-spacing: -1px
+		)
+	),
+	h5: (
+		base: (
+			font-size: 112.5%,
+			font-weight: bold,
+		)
+	),
+	h6: (
+		base: (
+			font-size: 112.5%,
+		)
+	),
+	p: (
+		base: (
+			line-height: 1.4em,
+			font-size: 106%
+		),
+		md: (
+			font-size: 112.5%
+		)
+	)
+);
