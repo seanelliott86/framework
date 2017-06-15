@@ -98,7 +98,7 @@ gulp.task('serve', ['copy', 'compile'], function() {
 gulp.task('watch', ['serve'], function () {
   gulp.watch(paths.srcSASS,['sass']);
   gulp.watch(paths.srcJS,['js']);
-  gulp.watch(srcSVG,['svgsprite']);
+  gulp.watch(srcSVG,['svg']);
   gulp.watch(paths.srcHTML, ['compile']);
 });
 
