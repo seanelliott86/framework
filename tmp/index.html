@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Title Template</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<link rel="shortcut icon" media="all" type="image/x-icon" href="favicon.ico">
+		<!--[if IE 9]><script src="js/libs/classList.min.js"></script><![endif]-->
+		<link href="css/main.css" type="text/css" rel="stylesheet">
+		<script>
+			// SVG Sprite Loader
+			var svgAjax = new XMLHttpRequest(), svgDiv;
+			svgAjax.open("GET", "svg/sprite.svg", true);
+			svgAjax.send();
+			svgAjax.onload = function(e) {
+				svgDiv = document.createElement("div");
+				svgDiv.innerHTML = svgAjax.responseText;
+				svgDiv.style.display = 'none';
+				document.body.insertBefore(svgDiv, document.body.childNodes[0]);
+			};
+
+			// Replace 'no-js' with 'js' on the html tag
+			(function(e){e.className=e.className.replace(/\bno-js\b/,'js')})(document.documentElement);
+			// Picturefill Support Script Loader
+			!function(){var a=document.createElement("img"),b="srcset"in a&&"sizes"in a;if(!b){var c=document.createElement("script");c.type="text/javascript",c.src="/common/js/picturefill.min.js",c.setAttribute("async","");var d=document.getElementsByTagName("head")[0];d.appendChild(c)}}();
+		</script>
+	</head>
+	<body>
+		
+		<header role="banner" class="mast-header">
+	<ul class="skip-to">
+		<li class="skip-to__item"><a href="#content-main" class="skip-to__links">Skip to main content</a></li>
+		<li class="skip-to__item"><a href="#main-nav" class="skip-to__links">Skip to main navigation</a></li>
+	</ul>
+
+	<a href="/" class="logo-link">
+		<svg class="logo">
+			<use xlink:href="#logo"></use>
+		</svg>
+	</a>
+
+	<button type="button" aria-controls="header-search" class="js-toggle toggle-search_btn"><span class="visually-hidden">Toggle Search</span>
+		<svg class="icon search">
+			<use xlink:href="#search"></use>
+		</svg>
+	</button>
+	
+	<div id="header-search" aria-expanded="false" tabindex="-1" role="region" class="header-search">
+		<div class="form">
+			<div class="form-row">
+				<div class="form-group">
+					<div class="label visually-hidden">
+						<label for="header-search-input">Search for:</label>
+					</div>
+					<div class="element">
+						<input id="header-search-input" type="text" name="Site Search" class="txt-input">
+					</div>
+					<div class="notes"></div>
+					<div class="msg"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+		<nav id="main-nav" aria-labelledby="main-nav-heading" class="main-nav">
+			<ul role="menubar" class="main-nav__list js-a11y-menu">
+				<li class="main-nav__item js-menu-items">
+					<a href="#" aria-haspopup="true" aria-expanded="false" role="menuitem" class="main-nav__link">About ICES</a>
+					<ul aria-label="About ICES Sub Menu" id="sub-menu-1" role="menu" class="submenu no-style js-sub-menu">
+						<li class="submenu__item"><a href="#" class="submenu__link"  role="menuitem">Mission, Vision &amp; Values</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">ICES 25th Anniversary</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Key Contacts</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Corporate Reports</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Board of Directors</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Collaborations &amp; Partnerships</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">ICES Scientists</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">ICES Contacts &amp; Locations</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Work with ICES</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Sourcing &amp; Procurement</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Expense Directive</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Accessibility</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Frequently Asked Questions</a></li>
+					</ul>
+				</li>
+				<li class="main-nav__item js-menu-items">
+					<a href="#" aria-haspopup="true" aria-expanded="false" role="menuitem" class="main-nav__link">Research</a>
+					<ul aria-label="Research Sub Menu" id="sub-menu-2" role="menu" class="submenu no-style js-sub-menu">
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">About ICES Research</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Research Programs</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">AHRQ</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Collaborations &amp; Partnerships</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Awards &amp; Recognition</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Information for Researchers</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Information for Students</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">CIHR Funding Reform</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">ICES Public-Oriented Research Findings</a></li>					
+					</ul>
+				</li>
+				<li class="main-nav__item js-menu-items">
+					<a href="about" aria-haspopup="true" aria-expanded="false" role="menuitem" class="main-nav__link">Publications</a>
+					<ul aria-label="Publications Sub Menu" id="sub-menu-3" role="menu" class="submenu no-style js-sub-menu">
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Atlases &amp; Reports</a></li>	
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Journal Articles</a></li>	
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Infographics</a></li>	
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Research Videos</a></li>	
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Newsletters</a></li>	
+					</ul>
+				</li>
+				<li class="main-nav__item js-menu-items">
+					<a href="about" aria-haspopup="true" aria-expanded="false" role="menuitem" class="main-nav__link">Data &amp; Privacy</a>
+					<ul aria-label="Data &amp; Privacy Sub Menu" id="sub-menu-4" role="menu" class="submenu no-style js-sub-menu">
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">ICES Data</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Data Dictionary</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Types of ICES Data</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Working with ICES Data</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Special Data Projects</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Privacy at ICES</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Privacy FAQs</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Questions or Complaints</a></li>
+					</ul>
+				</li>
+				<li class="main-nav__item js-menu-items">
+					<a href="about" aria-haspopup="true" aria-expanded="false" role="menuitem" class="main-nav__link">Newsroom</a>
+					<ul aria-label="Newsroom Sub Menu" id="sub-menu-5" role="menu" class="submenu no-style js-sub-menu">
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Announcements &amp; Events</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">News Releases</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">ICES in the News</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Top Stories Annually</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">For the Media</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Daily Health Headlines</a></li>
+					</ul>
+				</li>
+				<li class="main-nav__item js-menu-items">
+					<a href="about" aria-haspopup="true" aria-expanded="false" role="menuitem" class="main-nav__link">Data &amp; Analytic Services</a>
+					<ul aria-label="Data &amp; Analytic Services Sub Menu" id="sub-menu-6" role="menu" class="submenu no-style js-sub-menu">
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Information for Public Sector Researchers</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Information for Private Sector Researchers</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Completed Private Sector Projects</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Ongoing Private Sector Projects</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Data Available Through DAS</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Submitting Your Request</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">DAS Frequently Asked Questions</a></li>
+					</ul>
+				</li>
+			</ul>
+			<button class="main-menu__close icon-text js-close-nav" type="button">
+				<svg class="icon icn-close" focusable="false" aria-hidden="true">
+				    <use xlink:href="#icn-close"></use>
+				</svg>
+				<span class="sub">Close <span class="sr-only">Main Menu</span></span>
+			</button>
+		</nav>
+		<main id="content-main" role="main" class="content-main">
+			<div class="main-section">
+				<h1>Page Title</h1>
+				<h2>Documentation</h2>
+				<ul>
+					<li><a href="documentation.html">Documentation</a></li>
+				</ul>
+				<h2>Generic Master Templates</h2>
+				<ul>
+					<li><a href="generic-master(single-col).html">Generic Master (single col)</a></li>
+					<li><a href="generic-master(two-col_left).html">Generic Master (two col - left)</a></li>
+					<li><a href="generic-master(two-col_right).html">Generic Master (two col - right)</a></li>
+					<li><a href="generic-master(three-col).html">Generic Master (three col)</a></li>
+					<li><a href="form-template(kentico).html">Form Template (kentico form markup)</a></li>
+					<li><a href="form-template(example).html">Form Template (custom form markup)</a></li>
+					<li><a href="components.html">Components</a></li>
+				</ul>
+				<h2>Pages</h2>
+				<ul>
+					<li><a href="home.html">Homepage</a></li>
+				</ul>
+			</div>
+		</main>
+		<footer role="contentinfo" class="mast-footer">
+			<p class="disclaimer">Copyright &copy; 2015 Sitename.</p>
+		</footer>
+		<script src="js/scripts.js" async></script>
+		<script src="js/libs/a11y-menu.js" async></script>
+	</body>
+</html>
