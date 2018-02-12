@@ -1,13 +1,17 @@
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 // Create an immediately invoked functional expression to wrap our code
 (function (root, factory) {
-    if ( typeof define === 'function' && define.amd ) {
+    if (typeof define === 'function' && define.amd) {
         define('ResponsiveTables', factory(root));
-    } else if ( typeof exports === 'object' ) {
+    } else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') {
         module.exports = factory(root);
     } else {
         root.ResponsiveTables = factory(root);
     }
-})(this, function (root) {
+})(undefined, function (root) {
 
     'use strict';
 
@@ -29,12 +33,11 @@
         content: "js-responsive-tables"
     };
 
-
     //
     // Methods
     //
 
-    var extend = function ( source, properties ) {
+    var extend = function extend(source, properties) {
         var property;
         for (property in properties) {
             if (properties.hasOwnProperty(property)) {
@@ -44,10 +47,10 @@
         return source;
     };
 
-    var buildOut = function () {
+    var buildOut = function buildOut() {
         var content, docFrag, swipeTextArea, tableWrap;
 
-        containers = document.querySelectorAll("." + settings.content)
+        containers = document.querySelectorAll("." + settings.content);
 
         forEach(containers, function (i, value) {
             content = value.outerHTML;
@@ -63,24 +66,24 @@
             tableWrap = document.createElement("div");
             tableWrap.className = settings.wrapClass;
             tableWrap.innerHTML = content;
-            docFrag.appendChild(tableWrap)
+            docFrag.appendChild(tableWrap);
 
             // Append DocumentFragment to body
-            value.parentNode.insertBefore(docFrag, value)
+            value.parentNode.insertBefore(docFrag, value);
             value.parentNode.removeChild(value);
         });
     };
 
-    var eventThrottler = function () {
-        if ( !eventTimeout ) {
-            eventTimeout = setTimeout(function() {
+    var eventThrottler = function eventThrottler() {
+        if (!eventTimeout) {
+            eventTimeout = setTimeout(function () {
                 eventTimeout = null;
                 toggleResponsive();
             }, 66);
         }
     };
 
-    var toggleResponsive = function () {
+    var toggleResponsive = function toggleResponsive() {
 
         var wrap = document.querySelectorAll("." + settings.wrapClass);
 
@@ -89,33 +92,31 @@
                 swipeDiv = wrap.previousElementSibling,
                 cells = wrap.children[0].rows[0].children;
 
-            if(checkResponsive(wrap, cells)){
+            if (checkResponsive(wrap, cells)) {
                 wrap.classList.remove(settings.respondClass);
                 swipeDiv.classList.add(settings.hideClass);
-            }
-            else{
+            } else {
                 wrap.classList.add(settings.respondClass);
                 swipeDiv.classList.remove(settings.hideClass);
             }
-
         });
     };
 
-    var checkResponsive = function (wrap, cells) {
-        var elmWidth = 0, elmWrapWidth = 0,
+    var checkResponsive = function checkResponsive(wrap, cells) {
+        var elmWidth = 0,
+            elmWrapWidth = 0,
             cells = cells,
             wrap = wrap;
 
-        for ( var i = 0; i < cells.length; i++ ){
-           elmWidth += Math.floor(cells[i].offsetWidth, 10);
+        for (var i = 0; i < cells.length; i++) {
+            elmWidth += Math.floor(cells[i].offsetWidth, 10);
         }
 
         elmWrapWidth = wrap.offsetWidth;
 
         if (elmWrapWidth >= elmWidth) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     };
@@ -129,7 +130,7 @@
     exports.destroy = function () {
         // @todo Undo init...
 
-        if ( !settings ) return;
+        if (!settings) return;
 
         root.removeEventListener('resize', eventThrottler, false);
 
@@ -144,7 +145,7 @@
      * @public
      * @param {Object} options User settings
      */
-    exports.init = function ( options ) {
+    exports.init = function (options) {
 
         exports.destroy();
 
@@ -155,14 +156,11 @@
         root.addEventListener('resize', eventThrottler, false); // Run Right Height on window resize
 
         toggleResponsive();
-
     };
-
 
     //
     // Public APIs
     //
 
     return exports;
-
 });

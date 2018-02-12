@@ -1,21 +1,24 @@
 // -----------------------------------------------------------------------------
 // This file contains very basic styles.
 // -----------------------------------------------------------------------------
-
 html {
-  -webkit-box-sizing: border-box;  -moz-box-sizing: border-box;  box-sizing: border-box;
-  background-color: $white;
+	box-sizing: border-box;
+	background-color: $white;
 }
 
-*, *::before, *::after {
-  -webkit-box-sizing: inherit;  -moz-box-sizing: inherit;  box-sizing: inherit;
-} 
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
 
-:focus {outline:none;}
+:focus {
+	outline: none;
+}
 
 .icon {
-  display: inline-block;
-  width: 1.4rem;
-  vertical-align: middle;
-  height: 1.4rem;
+	display: inline-block;
+	width: 1.4rem;
+	vertical-align: middle;
+	height: 1.4rem;
 }

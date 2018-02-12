@@ -1,73 +1,80 @@
-cssLocalStorage = (function () {
-	var lsCount = 0,
-		lsObject = {cached: storageSettings.cachedDate},
-		injectContent, addToObject, loadFile, useLocal,
-		lsOff = "localStorageOff",
-		loadedClass = storageSettings.loadedClass;
+"use strict";
 
-    injectContent = function (content) {
-        var style = document.createElement('style');
+cssLocalStorage = function () {
+	var lsCount = 0,
+	    lsObject = { cached: storageSettings.cachedDate },
+	    injectContent,
+	    addToObject,
+	    loadFile,
+	    useLocal,
+	    lsOff = "localStorageOff",
+	    loadedClass = storageSettings.loadedClass;
+
+	injectContent = function injectContent(content) {
+		var style = document.createElement('style');
 		style.innerHTML = content;
 		document.head.appendChild(style);
-    }
-    addToObject = function (key, value){
-    	lsObject[key] = value;
-    	return lsObject;
-    }
-    loadFile = function (key, file){
-    	var xhr = new XMLHttpRequest(),
-    		obj,
-    		ie9 = document.all && !window.atob,
-    		file = (ie9 == undefined || ie9 == false) ? file : file + "?v=" + new Date().getTime();
+	};
+	addToObject = function addToObject(key, value) {
+		lsObject[key] = value;
+		return lsObject;
+	};
+	loadFile = function loadFile(key, file) {
+		var xhr = new XMLHttpRequest(),
+		    obj,
+		    ie9 = document.all && !window.atob,
+		    file = ie9 == undefined || ie9 == false ? file : file + "?v=" + new Date().getTime();
 
 		xhr.open('GET', file, true);
-		xhr.onreadystatechange = function() {
+		xhr.onreadystatechange = function () {
 			if (this.readyState === 4) {
 				if (this.status >= 200 && this.status < 400) {
 
-			     	cssLocalStorage.injectContent(xhr.responseText);
+					cssLocalStorage.injectContent(xhr.responseText);
 
-					if(key === "webfont")
-						document.documentElement.className+=" " + loadedClass;
+					if (key === "webfont") document.documentElement.className += " " + loadedClass;
 
 					obj = cssLocalStorage.addToObject(key, xhr.responseText);
 
 					lsCount++;
 
-					if(lsCount === Object.size(storageSettings.files) && cache !== lsOff){
+					if (lsCount === Object.size(storageSettings.files) && cache !== lsOff) {
 						obj = JSON.stringify(obj);
-						localStorage.setItem(storageSettings.name, obj)
+						localStorage.setItem(storageSettings.name, obj);
 					}
-			    } else {
-			      console.error("there is an issue with processing the ajax request")
-			    }
+				} else {
+					console.error("there is an issue with processing the ajax request");
+				}
 			}
 		};
 		xhr.send();
-    }
-    useLocal = function (data){
-    	for (var key in data) {
-    		if(key != "cached")
-    			cssLocalStorage.injectContent(data[key])
-    		if(key === "webfont")
-				document.documentElement.className+=" " + loadedClass;
+	};
+	useLocal = function useLocal(data) {
+		for (var key in data) {
+			if (key != "cached") cssLocalStorage.injectContent(data[key]);
+			if (key === "webfont") document.documentElement.className += " " + loadedClass;
 		}
-    }
-    return {
-        injectContent: injectContent,
-        loadFile: loadFile,
-        useLocal: useLocal,
-        addToObject: addToObject
-    }
-})();
+	};
+	return {
+		injectContent: injectContent,
+		loadFile: loadFile,
+		useLocal: useLocal,
+		addToObject: addToObject
+	};
+}();
 
-Object.size = function(obj) { var size = 0, key; for (key in obj) { if (obj.hasOwnProperty(key)) size++; } return size; };
+Object.size = function (obj) {
+	var size = 0,
+	    key;for (key in obj) {
+		if (obj.hasOwnProperty(key)) size++;
+	}return size;
+};
 
-(function() {
+(function () {
 	var name = storageSettings.name,
-		cachedDate = storageSettings.cachedDate,
-		files = storageSettings.files,
-		lsOff = "localStorageOff";
+	    cachedDate = storageSettings.cachedDate,
+	    files = storageSettings.files,
+	    lsOff = "localStorageOff";
 
 	// PRE-RENDER
 	try {
@@ -76,15 +83,13 @@ Object.size = function(obj) { var size = 0, key; for (key in obj) { if (obj.hasO
 			data = JSON.parse(cache);
 			if (data.cached == cachedDate) {
 				cssLocalStorage.useLocal(data);
-			} 
-			else {
+			} else {
 				// Busting cache when md5 doesn't match
 				localStorage.removeItem(name);
 				cache = null;
 			}
 		}
-	} 
-	catch(e) {
+	} catch (e) {
 		// Most likely LocalStorage disabled, so hopeless... just load css without storing
 		cache = lsOff;
 	}
@@ -92,12 +97,11 @@ Object.size = function(obj) { var size = 0, key; for (key in obj) { if (obj.hasO
 	//localStorage.clear();
 
 	// If there is no cache or localstorage is off
-	if(!cache || cache === lsOff){
+	if (!cache || cache === lsOff) {
 		for (var key in files) {
 			if (files.hasOwnProperty(key)) {
-				cssLocalStorage.loadFile(key, files[key])
+				cssLocalStorage.loadFile(key, files[key]);
 			}
 		}
 	}
-
 })();

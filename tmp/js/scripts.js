@@ -1,97 +1,93 @@
+"use strict";
+
 //Skip Links Helper
-window.addEventListener("hashchange", function(event) {
+window.addEventListener("hashchange", function (event) {
     var element = document.getElementById(location.hash.substring(1));
     if (element) {
         if (!/^(?:a|select|input|button|textarea)$/i.test(element.tagName)) element.tabIndex = -1;
         element.focus();
     }
-}, false); 
-
+}, false);
 
 //
 // Debounce
 //
-// Example usage: 
+// Example usage:
 // functionName(){ ... };
 // elem.addEventListener('resize', debounce(functionName, 100));
 // ================
 function debounce(func, wait, immediate) {
-  var timeout;
-  return function() {
-    var context = this, args = arguments;
-    var later = function() {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
+    var timeout = void 0;
+    return function () {
+        var context = this;
+        var args = arguments;
+        var later = function later() {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
     };
-    var callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
 };
-
-
 
 //
 // Throttle
 //
-// Example usage: 
+// Example usage:
 // functionName(){ ... };
 // elem.addEventListener('resize', throttle(functionName, 100));
 // ================
 function throttle(fn, threshhold, scope) {
-  threshhold || (threshhold = 250);
-  var last,
-      deferTimer;
-  return function () {
-    var context = scope || this;
+    threshhold || (threshhold = 250);
+    var last = void 0;
+    var deferTimer = void 0;
+    return function () {
+        var context = scope || this;
 
-    var now = +new Date,
-        args = arguments;
-    if (last && now < last + threshhold) {
-      // hold on to it
-      clearTimeout(deferTimer);
-      deferTimer = setTimeout(function () {
-        last = now;
-        fn.apply(context, args);
-      }, threshhold);
-    } else {
-      last = now;
-      fn.apply(context, args);
-    }
-  };
+        var now = +new Date();
+        var args = arguments;
+        if (last && now < last + threshhold) {
+            // hold on to it
+            clearTimeout(deferTimer);
+            deferTimer = setTimeout(function () {
+                last = now;
+                fn.apply(context, args);
+            }, threshhold);
+        } else {
+            last = now;
+            fn.apply(context, args);
+        }
+    };
 }
 
-
-
-// 
+//
 // Find all elements in a container that are focusable
 //
 // Accepts: DOM-Element as arguement
 // Returns: Object containing "all", "first" and "last" focusable elements found inside the target element
 // ================
-var getFocusableElements = function(element) {
+var getFocusableElements = function getFocusableElements(element) {
     var focusElemString = "a[href],button:not([disabled]),area[href],input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),iframe,object,embed,*:not(.is-draggabe)[tabindex],*[contenteditable]";
     var tempElements = element.querySelectorAll(focusElemString);
     tempElements = Array.prototype.slice.call(tempElements);
     var focusableElements = [];
 
     for (var i = 0; i < tempElements.length; i++) {
-      if(tempElements[i].offsetHeight !== 0) focusableElements.push(tempElements[i])
+        if (tempElements[i].offsetHeight !== 0) focusableElements.push(tempElements[i]);
     };
 
     var object = {
-      "all": focusableElements,
-      "first": focusableElements[0],
-      "last": focusableElements[focusableElements.length-1]
-    }
+        "all": focusableElements,
+        "first": focusableElements[0],
+        "last": focusableElements[focusableElements.length - 1]
+    };
 
     return object;
-}
+};
 
-
-
-// 
+//
 // Trap tabKey inside of container.
 // When focus is on first element and shift+tab is pressed focus is set to the last element.
 // When focus is on last element and tab is pressed focus is set to the first element.
@@ -103,12 +99,12 @@ var getFocusableElements = function(element) {
 //
 // Accepts: DOM-Element as arguement
 // ================
-var trapTabKey = function(container) {
+var trapTabKey = function trapTabKey(container) {
     var activeElm = document.activeElement;
     var focusObj = getFocusableElements(container);
 
     if (event.keyCode !== 9) return;
-        
+
     if (event.shiftKey && activeElm === focusObj.first) {
         focusObj.last.focus();
         event.preventDefault();
@@ -116,30 +112,28 @@ var trapTabKey = function(container) {
         focusObj.first.focus();
         event.preventDefault();
     }
-}
+};
 
-var trapUpDown = function(container) {
+var trapUpDown = function trapUpDown(container) {
     var activeElm = document.activeElement;
     var focusObj = getFocusableElements(container);
     var index = focusObj.all.indexOf(activeElm);
-    var lastIndex = focusObj.all.length-1;
+    var lastIndex = focusObj.all.length - 1;
 
-    if([38,40].indexOf(event.keyCode) === -1) return;
+    if (![38, 40].includes(event.keyCode)) return;
 
     // up key = 38
-    if(event.keyCode === 38) {
-        index = (index === 0) ? lastIndex : index-1;
+    if (event.keyCode === 38) {
+        index = index === 0 ? lastIndex : index - 1;
     }
     // down key = 40
-    else if(event.keyCode === 40){
-        index = (index === lastIndex) ? 0 : index+1;
-    }
+    else if (event.keyCode === 40) {
+            index = index === lastIndex ? 0 : index + 1;
+        }
 
     focusObj.all[index].focus();
     event.preventDefault();
-}
-
-
+};
 
 /**
  * Get the closest matching element up the DOM tree.
@@ -148,52 +142,44 @@ var trapUpDown = function(container) {
  * @param  {String}  selector Selector to match against
  * @return {Boolean|Element}  Returns null if not match found
  */
-var getClosest = function ( elem, selector ) {
+var getClosest = function getClosest(elem, selector) {
 
     // Element.matches() polyfill
     if (!Element.prototype.matches) {
-        Element.prototype.matches =
-            Element.prototype.matchesSelector ||
-            Element.prototype.mozMatchesSelector ||
-            Element.prototype.msMatchesSelector ||
-            Element.prototype.oMatchesSelector ||
-            Element.prototype.webkitMatchesSelector ||
-            function(s) {
-                var matches = (this.document || this.ownerDocument).querySelectorAll(s),
-                    i = matches.length;
-                while (--i >= 0 && matches.item(i) !== this) {}
-                return i > -1;
-            };
+        Element.prototype.matches = Element.prototype.matchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.msMatchesSelector || Element.prototype.oMatchesSelector || Element.prototype.webkitMatchesSelector || function (s) {
+            var matches = (this.document || this.ownerDocument).querySelectorAll(s);
+            var i = matches.length;
+            while (--i >= 0 && matches.item(i) !== this) {}
+            return i > -1;
+        };
     }
 
     // Get closest match
-    for ( ; elem && elem !== document; elem = elem.parentNode ) {
-        if ( elem.matches( selector ) ) return elem;
+    for (; elem && elem !== document; elem = elem.parentNode) {
+        if (elem.matches(selector)) return elem;
     }
 
     return null;
-
 };
 
 /* From Modernizr */
-function whichTransitionEvent(){
-    var t;
+function whichTransitionEvent() {
+    var t = void 0;
     var el = document.createElement('fakeelement');
     var transitions = {
-      'transition':'transitionend',
-      'OTransition':'oTransitionEnd',
-      'MozTransition':'transitionend',
-      'WebkitTransition':'webkitTransitionEnd'
-    }
+        'transition': 'transitionend',
+        'OTransition': 'oTransitionEnd',
+        'MozTransition': 'transitionend',
+        'WebkitTransition': 'webkitTransitionEnd'
+    };
 
-    for(t in transitions){
-        if( el.style[t] !== undefined ){
+    for (t in transitions) {
+        if (el.style[t] !== undefined) {
             return transitions[t];
         }
     }
 }
 
-    
 /**
  * Vanilla JS For Each Function - http://toddmotto.com/ditch-the-array-foreach-call-nodelist-hack/
  *
@@ -204,59 +190,60 @@ function whichTransitionEvent(){
  * });
  *
  **/
-var forEach = function (array, callback, scope) {
+var forEach = function forEach(array, callback, scope) {
     for (var i = 0, len = array.length; i < len; i++) {
         callback.call(scope, i, array[i]); // passes back stuff we need
     }
 };
 
-var assocArraySize = function(object) {
-    var size = 0, key;
+var assocArraySize = function assocArraySize(object) {
+    var size = 0,
+        key;
     for (key in object) {
         if (object.hasOwnProperty(key)) size++;
     }
     return size;
-}
-var createCookie = function(name, value, days){
+};
+var createCookie = function createCookie(name, value, days) {
     if (days) {
         var date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
         var expires = "; expires=" + date.toGMTString();
-    }
-    else expires = "";
+    } else expires = "";
     document.cookie = name + "=" + value + expires + "; path=/";
-}
-var readCookie = function(name){
+};
+var readCookie = function readCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
     for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1, c.length);
+        }if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
-}
-var eraseCookie = function(name){
-    createCookie(name,"",-1);
-}
-var buildDataObject = function(name, element){
-    var elem = (element instanceof jQuery) ? element[0] : element,
+};
+var eraseCookie = function eraseCookie(name) {
+    createCookie(name, "", -1);
+};
+var buildDataObject = function buildDataObject(name, element) {
+    var elem = element instanceof jQuery ? element[0] : element,
         attr = elem.attributes,
         i = attr.length,
         tempObj = {};
 
-    for (; i--; ){
+    for (; i--;) {
         var regex = new RegExp("^data-" + name + "-.*");
         if (regex.test(attr[i].name)) {
-            tempObj[attr[i].name.replace('data-'+name+'-','')] = attr[i].value
+            tempObj[attr[i].name.replace('data-' + name + '-', '')] = attr[i].value;
         }
     }
 
     return tempObj;
-
-}
-var getUrlVars = function(){
-    var vars = [], hash;
+};
+var getUrlVars = function getUrlVars() {
+    var vars = [],
+        hash;
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
     for (var i = 0; i < hashes.length; i++) {
         hash = hashes[i].split('=');
@@ -264,40 +251,40 @@ var getUrlVars = function(){
         vars[hash[0]] = hash[1];
     }
     return vars;
-}
-var setAttributes = function(el, attr){
-    for(var key in attr) {
+};
+var setAttributes = function setAttributes(el, attr) {
+    for (var key in attr) {
         el.setAttribute(key, attr[key]);
     }
-}
+};
 
-var searchEvents = function(domNode){
+var searchEvents = function (domNode) {
     // Constructor here
     'use strict';
+
     var domNode = domNode || document.querySelector('.js-search');
 
-    if(domNode === null) return;
+    if (domNode === null) return;
 
     var inputElm = domNode.querySelector('.js-input');
     var resetElm = domNode.querySelector('.js-reset');
-    var formElm =  domNode.querySelector('form');
+    var formElm = domNode.querySelector('form');
 
-    var showHideReset = function(event){
-        if(inputElm.value !== ""){
+    var showHideReset = function showHideReset(event) {
+        if (inputElm.value !== "") {
             resetElm.disabled = false;
-        }
-        else if(inputElm.value === ""){
+        } else if (inputElm.value === "") {
             resetElm.disabled = true;
         }
-    }
+    };
 
-    var resetInput = function(event){    
+    var resetInput = function resetInput(event) {
         formElm.reset();
         inputElm.focus();
         resetElm.disabled = true;
-    }
+    };
 
-    if(inputElm.value === "") resetElm.disabled = true;
+    if (inputElm.value === "") resetElm.disabled = true;
 
     inputElm.addEventListener("focus", showHideReset, true);
     inputElm.addEventListener("blur", showHideReset, true);

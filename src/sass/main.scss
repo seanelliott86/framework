@@ -1,43 +1,43 @@
 @charset 'UTF-8';
 
 // 1. Vendors
-@import
-  'vendor/normalize',
-  'vendor/mq',
-  'vendor/typography',
-  'vendor/bootstrap-grid';
+// @import
+//   'vendor/normalize',
+//   'vendor/mq',
+//   'vendor/typography',
+//   'vendor/bootstrap-grid';
 
-// 2. Configuration and helpers
-@import
-  'utils/variables',
-  'utils/functions',
-  'utils/mixins';
+// // 2. Configuration and helpers
+// @import
+//   'utils/variables',
+//   'utils/functions',
+//   'utils/mixins';
 
-// 3. Base stuff
+// // 3. Base stuff
 @import
-  'base/base',
-  'base/helpers',
-  'base/grid',
-  'base/typography';
+//  'base/base',
+  'base/helpers';
+//  'base/grid',
+//  'base/typography';
 
-// 4. Layout-related sections
-@import
-  'layout/header',
-  'layout/footer';
+// // 4. Layout-related sections
+// @import
+//   'layout/header',
+//   'layout/footer';
 
-// 5. Components
-@import
-  'components/nav',
-  'components/forms',
-  'components/tables',
-  'components/overlay',
-  'components/tabs';
+// // 5. Components
+// @import
+//   'components/nav',
+//   'components/forms',
+//   'components/tables',
+//   'components/overlay',
+//   'components/tabs';
 
-// 6. Page-specific styles - can be split into seperate file if needed
-@import
-  'pages/home';
+// // 6. Page-specific styles - can be split into seperate file if needed
+// @import
+//   'pages/home';
 
-// 7. Themes
-@import
-  'themes/default',
-  'themes/print';
+// // 7. Themes
+// @import
+//   'themes/default',
+//   'themes/print';

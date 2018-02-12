@@ -10,6 +10,7 @@ var del = require('del');
 var pump = require('pump');
 var autoprefixer = require('autoprefixer');
 var browserSync = require('browser-sync');
+var babel = require('gulp-babel');
 var portNumber = 3333;
 var svgConfig = {
     "mode": {
@@ -19,9 +20,11 @@ var svgConfig = {
         }
     }
 };
+var focusWithin = require('postcss-focus-within');
 var processors = [
-  autoprefixer({ add: false, browsers: ['last 3 versions'] })
+  focusWithin
 ];
+
 
 var paths = {
   srcHTML: 'src/**/*.html',
@@ -62,6 +65,7 @@ gulp.task('sass', function() {
 gulp.task('js', function () {
   return gulp.src(paths.srcJS)
       .pipe(cache('jsCopy'))
+      .pipe(babel())
       .pipe(gulp.dest(paths.tmp))
       .pipe(browserSync.reload({stream: true}));
 });
@@ -98,7 +102,7 @@ gulp.task('serve', ['copy', 'compile'], function() {
 gulp.task('watch', ['serve'], function () {
   gulp.watch(paths.srcSASS,['sass']);
   gulp.watch(paths.srcJS,['js']);
-  gulp.watch(srcSVG,['svg']);
+  gulp.watch(paths.srcSVG,['svg']);
   gulp.watch(paths.srcHTML, ['compile']);
 });
 

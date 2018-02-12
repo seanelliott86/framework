@@ -2,12 +2,10 @@
 //
 // Set the container width, and override it for fixed navbars in media queries.
 
-
 .container {
-  	@include make-container();
+	@include make-container();
 	@include make-container-max-widths();
 }
-
 
 // Fluid container
 //
@@ -23,7 +21,7 @@
 // Rows contain and clear the floats of your columns.
 
 .row {
-  @include make-row();
+	@include make-row();
 }
 
 // Columns

@@ -1,13 +1,17 @@
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 // Create an immediately invoked functional expression to wrap our code
 (function (root, factory) {
-    if ( typeof define === 'function' && define.amd ) {
+    if (typeof define === 'function' && define.amd) {
         define('Overlay', factory(root));
-    } else if ( typeof exports === 'object' ) {
+    } else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') {
         module.exports = factory(root);
     } else {
         root.Overlay = factory(root);
     }
-})(this, function (root) {
+})(undefined, function (root) {
 
     'use strict';
 
@@ -15,51 +19,59 @@
     // Variables
     //
 
-    var settings, keyboardClose, bgClose, overlayDialog, overlayBg, 
-        prevActiveElement, closeBtn, closeBtnElem, overlayElem, triggerElem, 
-        prevActiveElement, overlayFocusElements, firstFocusElement, 
-        lastFocusElement, overlayOpen,
-        exports = {}, 
+    var settings,
+        keyboardClose,
+        bgClose,
+        overlayDialog,
+        overlayBg,
+        prevActiveElement,
+        closeBtn,
+        closeBtnElem,
+        overlayElem,
+        triggerElem,
+        prevActiveElement,
+        overlayFocusElements,
+        firstFocusElement,
+        lastFocusElement,
+        overlayOpen,
+        exports = {},
         hideElements = false,
         transitionEvent = whichTransitionEvent(),
         ie9 = document.addEventListener && transitionEvent === undefined;
 
-        if (navigator.userAgent.match(/(iPad|iPhone|iPod)/i)) document.documentElement.className+= ' device-ios';
-        if (navigator.userAgent.match(/android/i)) document.documentElement.className+= ' device-android';
+    if (navigator.userAgent.match(/(iPad|iPhone|iPod)/i)) document.documentElement.className += ' device-ios';
+    if (navigator.userAgent.match(/android/i)) document.documentElement.className += ' device-android';
 
-        // Check 
-        var scrollDiv = document.createElement("div");
-        scrollDiv.className = "scrollbar-measure";
-        document.body.appendChild(scrollDiv);
+    // Check 
+    var scrollDiv = document.createElement("div");
+    scrollDiv.className = "scrollbar-measure";
+    document.body.appendChild(scrollDiv);
 
-        var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+    var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
 
-        if(scrollbarWidth === 0){
-            document.documentElement.className += " hiddenscroll";
-        }
-        else{
-            document.documentElement.className += " no-hiddenscroll";
-        }
+    if (scrollbarWidth === 0) {
+        document.documentElement.className += " hiddenscroll";
+    } else {
+        document.documentElement.className += " no-hiddenscroll";
+    }
 
-        document.body.removeChild(scrollDiv);
+    document.body.removeChild(scrollDiv);
 
     // Default settings
     var defaults = {
         triggerElement: null,
         closeClass: ".overlay_close-btn",
         hideElements: "#content-main, .mast-header, .mast-footer",
-        beforeOpen: function () {},
-        afterOpen: function () {},
-        beforeClose: function () {},
-        afterClose: function () {}
-    }
+        beforeOpen: function beforeOpen() {},
+        afterOpen: function afterOpen() {},
+        beforeClose: function beforeClose() {},
+        afterClose: function afterClose() {}
 
+        //
+        // Methods
+        //
 
-    //
-    // Methods
-    //
-
-    var extend = function ( source, properties ) {
+    };var extend = function extend(source, properties) {
         var property;
         for (property in properties) {
             if (properties.hasOwnProperty(property)) {
@@ -69,34 +81,33 @@
         return source;
     };
 
-    var setUp = function(){
+    var setUp = function setUp() {
         var tempTrigger = settings.triggerElement;
         var longScroll = document.getElementsByTagName('body')[0].clientHeight > window.innerHeight;
 
-        if(typeof tempTrigger == 'string' || tempTrigger instanceof String){
+        if (typeof tempTrigger == 'string' || tempTrigger instanceof String) {
             triggerElem = document.getElementById(tempTrigger);
             prevActiveElement = triggerElem;
-        }
-        else{
+        } else {
             triggerElem = tempTrigger;
             prevActiveElement = tempTrigger;
         }
 
-        keyboardClose = (triggerElem.hasAttribute('data-overlay-keyClose')) ? triggerElem.getAttribute('data-overlay-keyClose') : "true";
-        bgClose = (triggerElem.hasAttribute('data-overlay-bgClose')) ? triggerElem.getAttribute('data-overlay-bgClose') : "true";
-        closeBtn = (triggerElem.hasAttribute('data-overlay-closeBtn')) ? triggerElem.getAttribute('data-overlay-closeBtn') : "true";
+        keyboardClose = triggerElem.hasAttribute('data-overlay-keyClose') ? triggerElem.getAttribute('data-overlay-keyClose') : "true";
+        bgClose = triggerElem.hasAttribute('data-overlay-bgClose') ? triggerElem.getAttribute('data-overlay-bgClose') : "true";
+        closeBtn = triggerElem.hasAttribute('data-overlay-closeBtn') ? triggerElem.getAttribute('data-overlay-closeBtn') : "true";
         overlayElem = document.getElementById(triggerElem.getAttribute('aria-controls'));
         overlayBg = overlayElem.querySelector('.overlay_bg');
         overlayDialog = overlayElem.querySelector('.overlay_dialog');
         hideElements = document.querySelectorAll(settings.hideElements);
         overlayFocusElements = getFocusableChildren();
 
-        if(closeBtn === "true") {
+        if (closeBtn === "true") {
             closeBtnElem = overlayElem.querySelector(settings.closeClass);
             closeBtnElem.addEventListener('click', eventHandler, false);
         }
 
-        if(bgClose === "true"){
+        if (bgClose === "true") {
             overlayDialog.addEventListener('click', eventHandler, false);
             overlayBg.addEventListener('click', eventHandler, false);
         }
@@ -106,38 +117,38 @@
         window.addEventListener('resize', eventHandler, false);
     };
 
-    var getFocusableChildren = function() {
+    var getFocusableChildren = function getFocusableChildren() {
         var children = overlayDialog.querySelectorAll("a[href],button:not([disabled]),area[href],input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),iframe,object,embed,*:not(.is-draggabe)[tabindex],*[contenteditable]");
         var focusableChildren = [].slice.call(children);
 
-        lastFocusElement = focusableChildren[focusableChildren.length-1];
+        lastFocusElement = focusableChildren[focusableChildren.length - 1];
         firstFocusElement = focusableChildren[0];
 
-        return focusableChildren
-    }
+        return focusableChildren;
+    };
 
-    var eventHandler = function(event){
+    var eventHandler = function eventHandler(event) {
         var eventType = event.type,
             eTarget = event.target,
             eCurrTarget = event.currentTarget,
             eKeycode = event.keyCode,
             eWhich = event.which;
 
-        if(!overlayOpen) return false;
+        if (!overlayOpen) return false;
 
         if (eventType === 'click') {
-            if(eCurrTarget === closeBtnElem || eTarget === overlayDialog || eTarget === overlayBg) {
+            if (eCurrTarget === closeBtnElem || eTarget === overlayDialog || eTarget === overlayBg) {
                 exports.close();
                 event.stopPropagation();
             }
         }
 
-        if(eventType === "keydown"){
-            if(eKeycode == 27 && keyboardClose === "true") exports.close();
-            if(eWhich === 9) trapTabKey(event);
+        if (eventType === "keydown") {
+            if (eKeycode == 27 && keyboardClose === "true") exports.close();
+            if (eWhich === 9) trapTabKey(event);
         }
 
-        if(eventType === "resize"){
+        if (eventType === "resize") {
             checkPosition();
         }
     };
@@ -145,61 +156,56 @@
     /**
      * Debounce and Throttle Actions
      **/
-    var debounce = function (func, threshold, execAsap) {
+    var debounce = function debounce(func, threshold, execAsap) {
 
         var timeout;
-     
-        return function debounced () {
-            var obj = this, args = arguments;
-            function delayed () {
-                if (!execAsap)
-                    func.apply(obj, args);
-                timeout = null; 
+
+        return function debounced() {
+            var obj = this,
+                args = arguments;
+            function delayed() {
+                if (!execAsap) func.apply(obj, args);
+                timeout = null;
             };
-     
-            if (timeout)
-                clearTimeout(timeout);
-            else if (execAsap)
-                func.apply(obj, args);
-     
-            timeout = setTimeout(delayed, threshold || 100); 
+
+            if (timeout) clearTimeout(timeout);else if (execAsap) func.apply(obj, args);
+
+            timeout = setTimeout(delayed, threshold || 100);
         };
-     
     };
 
-    var checkPosition = debounce(function() {
+    var checkPosition = debounce(function () {
         var dialogHeight = overlayDialog.offsetHeight,
             windowHeight = window.innerHeight;
 
-        if(dialogHeight >= windowHeight){
+        if (dialogHeight >= windowHeight) {
             overlayElem.classList.add('is-anchored');
-        }
-        else{
+        } else {
             overlayElem.classList.remove('is-anchored');
         }
     }, 250);
 
-    function whichTransitionEvent(){
+    function whichTransitionEvent() {
         var t;
         var el = document.createElement('fakeelement');
         var transitions = {
-          'transition':'transitionend',
-          'OTransition':'oTransitionEnd',
-          'MozTransition':'transitionend',
-          'WebkitTransition':'webkitTransitionEnd'
-        }
+            'transition': 'transitionend',
+            'OTransition': 'oTransitionEnd',
+            'MozTransition': 'transitionend',
+            'WebkitTransition': 'webkitTransitionEnd'
+        };
 
-        for(t in transitions){
-            if( el.style[t] !== undefined ){
+        for (t in transitions) {
+            if (el.style[t] !== undefined) {
                 return transitions[t];
             }
         }
     }
 
-    var animateOverlay = function(type){
-        if(type === "open"){
+    var animateOverlay = function animateOverlay(type) {
+        if (type === "open") {
 
-            if(overlayDialog.offsetHeight > window.innerHeight){
+            if (overlayDialog.offsetHeight > window.innerHeight) {
                 overlayElem.classList.add('is-anchored');
             }
 
@@ -208,18 +214,16 @@
             overlayOpen = true;
 
             document.body.classList.add('overlay-open');
-        }
-        else if(type === "close"){
-            overlayElem.setAttribute('aria-hidden', 'true')
+        } else if (type === "close") {
+            overlayElem.setAttribute('aria-hidden', 'true');
 
             overlayOpen = false;
-            
-            document.body.classList.remove('overlay-open');
 
+            document.body.classList.remove('overlay-open');
         }
     };
 
-    var openOverlay = function () {
+    var openOverlay = function openOverlay() {
 
         overlayElem.setAttribute('aria-hidden', 'false');
 
@@ -230,7 +234,7 @@
         animateOverlay("open");
     };
 
-    var closeOverlay = function(){
+    var closeOverlay = function closeOverlay() {
         overlayElem.classList.remove('is-open', 'is-anchored');
 
         for (var i = hideElements.length - 1; i >= 0; i--) {
@@ -238,9 +242,9 @@
         };
 
         animateOverlay("close");
-    }
+    };
 
-    function trapTabKey (event) {
+    function trapTabKey(event) {
         var focusableChildren = getFocusableChildren(),
             focusedItemIndex = focusableChildren.indexOf(document.activeElement);
 
@@ -260,11 +264,11 @@
     exports.destroy = function () {
         if (!settings) return;
 
-        if(closeBtn === "true") {
+        if (closeBtn === "true") {
             closeBtnElem.removeEventListener('click', eventHandler, false);
         }
 
-        if(bgClose === "true"){
+        if (bgClose === "true") {
             overlayDialog.removeEventListener('click', eventHandler, false);
             overlayBg.removeEventListener('click', eventHandler, false);
         }
@@ -276,7 +280,6 @@
         keyboardClose = bgClose = overlayDialog = prevActiveElement = overlayBg = closeBtn = closeBtnElem = overlayElem = triggerElem = prevActiveElement = overlayFocusElements = firstFocusElement = lastFocusElement = overlayOpen = transitionEvent = ie9 = null;
 
         settings = null;
-
     };
 
     /**
@@ -308,7 +311,7 @@
         settings.beforeClose();
         closeOverlay();
         settings.afterClose();
-        console.log(prevActiveElement)
+        console.log(prevActiveElement);
         prevActiveElement.focus();
     };
 
@@ -316,5 +319,4 @@
     // Public APIs
     //
     return exports;
-
 });

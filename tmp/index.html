@@ -8,7 +8,6 @@
 		<meta name="keywords" content="">
 		<meta name="viewport" content="width=device-width,initial-scale=1">
 		<link rel="shortcut icon" media="all" type="image/x-icon" href="favicon.ico">
-		<!--[if IE 9]><script src="js/libs/classList.min.js"></script><![endif]-->
 		<link href="css/main.css" type="text/css" rel="stylesheet">
 		<script>
 			// SVG Sprite Loader
@@ -26,10 +25,14 @@
 			(function(e){e.className=e.className.replace(/\bno-js\b/,'js')})(document.documentElement);
 			// Picturefill Support Script Loader
 			!function(){var a=document.createElement("img"),b="srcset"in a&&"sizes"in a;if(!b){var c=document.createElement("script");c.type="text/javascript",c.src="/common/js/picturefill.min.js",c.setAttribute("async","");var d=document.getElementsByTagName("head")[0];d.appendChild(c)}}();
+			// Focus-withing support
+			!function(){var e=document.createElement("div");try{e.querySelector(":focus-within")}catch(e){var t=document.createElement("script");t.type="text/javascript",t.src="/common/js/focus-within.js",t.setAttribute("async",""),document.getElementsByTagName("head")[0].appendChild(t)}}();
+
 		</script>
 	</head>
 	<body>
-		
+
+		<!-- Start header -->
 		<header role="banner" class="mast-header">
 	<ul class="skip-to">
 		<li class="skip-to__item"><a href="#content-main" class="skip-to__links">Skip to main content</a></li>
@@ -65,6 +68,7 @@
 		</div>
 	</div>
 </header>
+		<!-- End header -->
 
 		<nav id="main-nav" aria-labelledby="main-nav-heading" class="main-nav">
 			<ul role="menubar" class="main-nav__list js-a11y-menu">
@@ -97,17 +101,17 @@
 						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Information for Researchers</a></li>
 						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Information for Students</a></li>
 						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">CIHR Funding Reform</a></li>
-						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">ICES Public-Oriented Research Findings</a></li>					
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">ICES Public-Oriented Research Findings</a></li>
 					</ul>
 				</li>
 				<li class="main-nav__item js-menu-items">
 					<a href="about" aria-haspopup="true" aria-expanded="false" role="menuitem" class="main-nav__link">Publications</a>
 					<ul aria-label="Publications Sub Menu" id="sub-menu-3" role="menu" class="submenu no-style js-sub-menu">
-						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Atlases &amp; Reports</a></li>	
-						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Journal Articles</a></li>	
-						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Infographics</a></li>	
-						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Research Videos</a></li>	
-						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Newsletters</a></li>	
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Atlases &amp; Reports</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Journal Articles</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Infographics</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Research Videos</a></li>
+						<li class="submenu__item"><a href="#" class="submenu__link" role="menuitem">Newsletters</a></li>
 					</ul>
 				</li>
 				<li class="main-nav__item js-menu-items">
@@ -154,6 +158,47 @@
 				<span class="sub">Close <span class="sr-only">Main Menu</span></span>
 			</button>
 		</nav>
+
+
+		<nav class="primary_nav_wrap">
+			<ul>
+				<li class="current-menu-item"><a href="#">Home</a></li>
+				<li>
+					<a href="#">Menu 1</a>
+					<ul>
+						<li><a href="#">Sub Menu 1</a></li>
+						<li><a href="#">Sub Menu 2</a></li>
+						<li><a href="#">Sub Menu 3</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">Menu 2</a>
+					<ul>
+						<li><a href="#">Sub Menu 1</a></li>
+						<li><a href="#">Sub Menu 2</a></li>
+						<li><a href="#">Sub Menu 3</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">Menu 3</a>
+					<ul>
+						<li><a href="#">Sub Menu 1</a></li>
+						<li><a href="#">Sub Menu 2</a></li>
+						<li><a href="#">Sub Menu 3</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">Menu 4</a>
+					<ul>
+						<li><a href="#">Sub Menu 1</a></li>
+						<li><a href="#">Sub Menu 2</a></li>
+						<li><a href="#">Sub Menu 3</a></li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+
+
 		<main id="content-main" role="main" class="content-main">
 			<div class="main-section">
 				<h1>Page Title</h1>

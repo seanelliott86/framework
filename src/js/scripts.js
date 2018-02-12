@@ -1,29 +1,30 @@
 //Skip Links Helper
-window.addEventListener("hashchange", function(event) {
-    var element = document.getElementById(location.hash.substring(1));
+window.addEventListener("hashchange", event => {
+    const element = document.getElementById(location.hash.substring(1));
     if (element) {
         if (!/^(?:a|select|input|button|textarea)$/i.test(element.tagName)) element.tabIndex = -1;
         element.focus();
     }
-}, false); 
+}, false);
 
 
 //
 // Debounce
 //
-// Example usage: 
+// Example usage:
 // functionName(){ ... };
 // elem.addEventListener('resize', debounce(functionName, 100));
 // ================
 function debounce(func, wait, immediate) {
-  var timeout;
+  let timeout;
   return function() {
-    var context = this, args = arguments;
-    var later = function() {
+    const context = this;
+    const args = arguments;
+    const later = () => {
       timeout = null;
       if (!immediate) func.apply(context, args);
     };
-    var callNow = immediate && !timeout;
+    const callNow = immediate && !timeout;
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
     if (callNow) func.apply(context, args);
@@ -35,23 +36,23 @@ function debounce(func, wait, immediate) {
 //
 // Throttle
 //
-// Example usage: 
+// Example usage:
 // functionName(){ ... };
 // elem.addEventListener('resize', throttle(functionName, 100));
 // ================
 function throttle(fn, threshhold, scope) {
   threshhold || (threshhold = 250);
-  var last,
-      deferTimer;
+  let last;
+  let deferTimer;
   return function () {
-    var context = scope || this;
+    const context = scope || this;
 
-    var now = +new Date,
-        args = arguments;
+    const now = +new Date;
+    const args = arguments;
     if (last && now < last + threshhold) {
       // hold on to it
       clearTimeout(deferTimer);
-      deferTimer = setTimeout(function () {
+      deferTimer = setTimeout(() => {
         last = now;
         fn.apply(context, args);
       }, threshhold);
@@ -64,34 +65,34 @@ function throttle(fn, threshhold, scope) {
 
 
 
-// 
+//
 // Find all elements in a container that are focusable
 //
 // Accepts: DOM-Element as arguement
 // Returns: Object containing "all", "first" and "last" focusable elements found inside the target element
 // ================
-var getFocusableElements = function(element) {
-    var focusElemString = "a[href],button:not([disabled]),area[href],input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),iframe,object,embed,*:not(.is-draggabe)[tabindex],*[contenteditable]";
-    var tempElements = element.querySelectorAll(focusElemString);
+const getFocusableElements = element => {
+    const focusElemString = "a[href],button:not([disabled]),area[href],input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),iframe,object,embed,*:not(.is-draggabe)[tabindex],*[contenteditable]";
+    let tempElements = element.querySelectorAll(focusElemString);
     tempElements = Array.prototype.slice.call(tempElements);
-    var focusableElements = [];
+    const focusableElements = [];
 
-    for (var i = 0; i < tempElements.length; i++) {
+    for (let i = 0; i < tempElements.length; i++) {
       if(tempElements[i].offsetHeight !== 0) focusableElements.push(tempElements[i])
     };
 
-    var object = {
+    const object = {
       "all": focusableElements,
       "first": focusableElements[0],
       "last": focusableElements[focusableElements.length-1]
-    }
+    };
 
     return object;
-}
+};
 
 
 
-// 
+//
 // Trap tabKey inside of container.
 // When focus is on first element and shift+tab is pressed focus is set to the last element.
 // When focus is on last element and tab is pressed focus is set to the first element.
@@ -103,12 +104,12 @@ var getFocusableElements = function(element) {
 //
 // Accepts: DOM-Element as arguement
 // ================
-var trapTabKey = function(container) {
-    var activeElm = document.activeElement;
-    var focusObj = getFocusableElements(container);
+const trapTabKey = container => {
+    const activeElm = document.activeElement;
+    const focusObj = getFocusableElements(container);
 
     if (event.keyCode !== 9) return;
-        
+
     if (event.shiftKey && activeElm === focusObj.first) {
         focusObj.last.focus();
         event.preventDefault();
@@ -116,15 +117,15 @@ var trapTabKey = function(container) {
         focusObj.first.focus();
         event.preventDefault();
     }
-}
+};
 
-var trapUpDown = function(container) {
-    var activeElm = document.activeElement;
-    var focusObj = getFocusableElements(container);
-    var index = focusObj.all.indexOf(activeElm);
-    var lastIndex = focusObj.all.length-1;
+const trapUpDown = container => {
+    const activeElm = document.activeElement;
+    const focusObj = getFocusableElements(container);
+    let index = focusObj.all.indexOf(activeElm);
+    const lastIndex = focusObj.all.length-1;
 
-    if([38,40].indexOf(event.keyCode) === -1) return;
+    if(![38,40].includes(event.keyCode)) return;
 
     // up key = 38
     if(event.keyCode === 38) {
@@ -137,7 +138,7 @@ var trapUpDown = function(container) {
 
     focusObj.all[index].focus();
     event.preventDefault();
-}
+};
 
 
 
@@ -148,7 +149,7 @@ var trapUpDown = function(container) {
  * @param  {String}  selector Selector to match against
  * @return {Boolean|Element}  Returns null if not match found
  */
-var getClosest = function ( elem, selector ) {
+const getClosest = (elem, selector) => {
 
     // Element.matches() polyfill
     if (!Element.prototype.matches) {
@@ -159,8 +160,8 @@ var getClosest = function ( elem, selector ) {
             Element.prototype.oMatchesSelector ||
             Element.prototype.webkitMatchesSelector ||
             function(s) {
-                var matches = (this.document || this.ownerDocument).querySelectorAll(s),
-                    i = matches.length;
+                const matches = (this.document || this.ownerDocument).querySelectorAll(s);
+                let i = matches.length;
                 while (--i >= 0 && matches.item(i) !== this) {}
                 return i > -1;
             };
@@ -177,14 +178,14 @@ var getClosest = function ( elem, selector ) {
 
 /* From Modernizr */
 function whichTransitionEvent(){
-    var t;
-    var el = document.createElement('fakeelement');
-    var transitions = {
+    let t;
+    const el = document.createElement('fakeelement');
+    const transitions = {
       'transition':'transitionend',
       'OTransition':'oTransitionEnd',
       'MozTransition':'transitionend',
       'WebkitTransition':'webkitTransitionEnd'
-    }
+    };
 
     for(t in transitions){
         if( el.style[t] !== undefined ){
@@ -193,7 +194,7 @@ function whichTransitionEvent(){
     }
 }
 
-    
+
 /**
  * Vanilla JS For Each Function - http://toddmotto.com/ditch-the-array-foreach-call-nodelist-hack/
  *
@@ -291,7 +292,7 @@ var searchEvents = function(domNode){
         }
     }
 
-    var resetInput = function(event){    
+    var resetInput = function(event){
         formElm.reset();
         inputElm.focus();
         resetElm.disabled = true;
